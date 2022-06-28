@@ -1,5 +1,3 @@
-# Simple-Inventory-App
-
 # Scopic Software - DevOps Skill Test
 
 ## Simple Inventory Application
