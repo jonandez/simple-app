@@ -1,0 +1,48 @@
+services:
+  frontend:
+    image: josegrelnx/simple-inventory-frontend:v1
+    ports:
+      - "80:80"
+    networks:
+      - front-tier
+      - back-tier
+    # configs:
+    #   - httpd-config
+    # secrets:
+    #   - server-certificate
+
+  backend:
+    image: josegrelnx/simple-inventory-backend:v1
+    ports:
+      - "8080:8080"
+    networks:
+      - back-tier
+
+  postgres:
+    image: postgres:alpine3.16
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - db-data:/usr/local/pgsql/data
+    networks:
+      - back-tier
+
+volumes:
+  db-data: {}
+
+# configs:
+#   httpd-config:
+#     external: true
+
+# secrets:
+#   server-certificate:
+#     external: true
+
+networks:
+  # The presence of these objects is sufficient to define them
+  front-tier: {}
+  back-tier: {}
